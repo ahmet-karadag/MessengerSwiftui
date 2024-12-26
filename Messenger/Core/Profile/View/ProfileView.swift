@@ -10,6 +10,7 @@ import PhotosUI
 
 struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
+    let user: User
     var body: some View {
         VStack{
             PhotosPicker(selection: $viewModel.selectedItem) {
@@ -20,13 +21,14 @@ struct ProfileView: View {
                         .scaledToFill()
                         .clipShape(Circle())
                 }else {
-                    Image(systemName: "person.circle.fill")
+                    Image(user.profileImageUrl ?? "")
                         .resizable()
-                        .frame(width: 90,height: 90)
-                        .foregroundStyle(Color(.systemGray2))
+                        .frame(width: 90, height: 90)
+                        .clipShape(Circle())
+                        .scaledToFill()
                 }
             }
-            Text("Ahmet Karadağ")
+            Text(user.fullName)
                 .font(.title3)
                 .fontWeight(.semibold)
         }
@@ -59,5 +61,5 @@ struct ProfileView: View {
 }
 
 #Preview {
-    ProfileView()
+    ProfileView(user: User.fakeUser)
 }
