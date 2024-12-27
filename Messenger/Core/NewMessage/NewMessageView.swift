@@ -27,11 +27,8 @@ struct NewMessageView: View {
                 ForEach (0 ... 10, id: \.self){ user in
                     
                     HStack {
-                        Image(systemName: "person.circle.fill")
-                            .resizable()
-                            .frame(width: 50, height: 50)
-                            .foregroundStyle(Color(.systemGray4))
-                        Text("erdem")
+                        CircularProfileImageView(user: User.fakeUser, size: .medium)
+                        Text("Spiderman")
                             .font(.subheadline)
                             .fontWeight(.semibold)
                         Spacer()
