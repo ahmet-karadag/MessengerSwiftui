@@ -8,7 +8,7 @@
 import Foundation
 
 struct User: Codable, Identifiable, Hashable {
-  //  var id = NSUUID().uuidString
+  //  var id = NSUUID().uuidString eski yöntem.
     var id = UUID().uuidString
     let fullName: String
     let email: String
