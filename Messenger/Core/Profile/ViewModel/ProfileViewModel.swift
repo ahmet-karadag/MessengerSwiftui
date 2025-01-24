@@ -10,7 +10,7 @@ import PhotosUI
 import SwiftUI
 
 
-
+@MainActor
 class ProfileViewModel: ObservableObject {
     
     @Published var selectedItem: PhotosPickerItem? {
@@ -28,7 +28,7 @@ class ProfileViewModel: ObservableObject {
         guard let uiImage = UIImage(data: imagedata) else { return }
         
         DispatchQueue.main.async {
-                    self.profileImage = Image(uiImage: uiImage)
-                }
+             self.profileImage = Image(uiImage: uiImage)
+        }
     }
 }
