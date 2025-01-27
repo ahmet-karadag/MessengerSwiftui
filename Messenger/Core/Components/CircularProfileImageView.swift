@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct CircularProfileImageView: View {
-    let user : User
+    var user : User?
     let size: ProfileImageSize
     var body: some View {
-        if let imageUrl = user.profileImageUrl {
+        if let imageUrl = user?.profileImageUrl {
             Image(imageUrl)
                 .resizable()
                 .frame(width:size.dimension, height: size.dimension)
