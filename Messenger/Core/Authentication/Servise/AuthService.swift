@@ -17,9 +17,7 @@ class AuthService {
     
     init () {
         self.userSession = Auth.auth().currentUser
-        Task {
-            try await UserService.shared.fetchCurrentUser()
-        }
+        loadCurrentUserData()
         print("deneme: \(userSession?.uid)")
     }
     @MainActor
@@ -27,6 +25,7 @@ class AuthService {
         do{
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             self.userSession = result.user
+            loadCurrentUserData()
         }catch{
             print("Logout:  \(error.localizedDescription)")
         }
@@ -37,6 +36,7 @@ class AuthService {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
             try await uploadUserData(email: email, fullName: fullName, id: result.user.uid)//hata alırsam kontrol et burayı.
+            loadCurrentUserData()
         }catch {
             print("User: \(error.localizedDescription)")
         }
@@ -46,6 +46,7 @@ class AuthService {
         do{
             try Auth.auth().signOut()//firebase kullanıcı çıkışı yapan fonksiyon.
             self.userSession = nil
+            UserService.shared.currentUser = nil
         }catch {
             print("Logout:  \(error.localizedDescription)")
         }
@@ -58,5 +59,10 @@ class AuthService {
             return
         }
         try await Firestore.firestore().collection("users").document(id).setData(encodeUser)
+    }
+    private func loadCurrentUserData() {
+        Task {
+            try await UserService.shared.fetchCurrentUser()
+        }
     }
 }

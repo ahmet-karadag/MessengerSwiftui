@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NewMessageView: View {
     @State private var searchText = ""
+    @StateObject private var newMessageVM = NewMessageViewModel()
     @Environment(\.dismiss) var dismiss
     var body: some View {
         NavigationStack {
@@ -24,11 +25,12 @@ struct NewMessageView: View {
                     .padding()
                     .foregroundStyle(Color(.black))
                 
-                ForEach (0 ... 10, id: \.self){ user in
+                ForEach (newMessageVM.users){ user in
                     
                     HStack {
-                        CircularProfileImageView(user: User.fakeUser, size: .medium)
-                        Text("Spiderman")
+                        CircularProfileImageView(user: user, size: .medium)
+                      //  Text("Spiderman")
+                        Text(user.fullName)
                             .font(.subheadline)
                             .fontWeight(.semibold)
                         Spacer()
