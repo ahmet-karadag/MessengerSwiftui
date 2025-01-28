@@ -10,6 +10,7 @@ import SwiftUI
 struct NewMessageView: View {
     @State private var searchText = ""
     @StateObject private var newMessageVM = NewMessageViewModel()
+    @Binding var selectedUser: User?
     @Environment(\.dismiss) var dismiss
     var body: some View {
         NavigationStack {
@@ -26,6 +27,8 @@ struct NewMessageView: View {
                     .foregroundStyle(Color(.black))
                 
                 ForEach (newMessageVM.users){ user in
+                    VStack {
+                        
                     
                     HStack {
                         CircularProfileImageView(user: user, size: .medium)
@@ -38,6 +41,10 @@ struct NewMessageView: View {
                     .padding(.leading)
                     Divider()
                         .padding(.leading,35)
+                    }.onTapGesture {
+                        selectedUser = user
+                        dismiss()
+                    }
                 }
             }
             .navigationTitle("new messages")
@@ -55,5 +62,7 @@ struct NewMessageView: View {
 }
 
 #Preview {
-    NewMessageView()
+    NavigationStack {
+        NewMessageView(selectedUser: .constant(User.fakeUser))
+    }
 }
