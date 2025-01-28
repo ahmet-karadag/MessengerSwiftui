@@ -30,8 +30,9 @@ struct ChatView: View {
                         .foregroundStyle(Color(.systemGray))
                 }
             }
-            ForEach(0 ... 10, id: \.self) { message in
-                ChatMessageCell(isFromCurrentUser: Bool.random())
+            //messages
+            ForEach(chatVM.messages) { message in
+                ChatMessageCell(message: message)
             }
         }
         Spacer()

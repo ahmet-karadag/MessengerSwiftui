@@ -8,13 +8,17 @@
 import SwiftUI
 
 struct ChatMessageCell: View {
-    let isFromCurrentUser: Bool
+    let message: Message
+    
+    private var isFromCurrentUser: Bool {
+        return message.isFromCurrentUser
+    }
     var body: some View {
        HStack {
            if isFromCurrentUser {
                Spacer()
               
-               Text( "text message text message text message text message text message text message" )
+               Text(message.messageText)
                    .font(.subheadline)
                    .padding(12)
                    .background(Color(.systemBlue))
@@ -39,7 +43,7 @@ struct ChatMessageCell: View {
        .padding(.horizontal,8)
     }
 }
-
+/*
 #Preview {
     ChatMessageCell(isFromCurrentUser: false)
-}
+}*/

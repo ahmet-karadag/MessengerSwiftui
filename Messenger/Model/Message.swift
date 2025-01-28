@@ -25,5 +25,8 @@ struct Message: Identifiable, Codable, Hashable {
     var chatPartnerId: String {
         return fromId == Auth.auth().currentUser!.uid ? toId : fromId
     }
+    var isFromCurrentUser: Bool {
+        return fromId == Auth.auth().currentUser!.uid
+    }
 }
 
